@@ -1,4 +1,4 @@
 appengine-guestbook-python-cloudsql
 ===================================
 
-Another guestbook example with Cloud SQL as the data storage
+This is another guestbook example with Cloud SQL as the data storage.
