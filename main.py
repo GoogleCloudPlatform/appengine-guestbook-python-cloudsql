@@ -31,7 +31,7 @@ jinja2_env = jinja2.Environment(
     loader=jinja2.FileSystemLoader(os.path.join(os.path.dirname(__file__))))
 
 
-class MainHandler(webapp.RequestHandler):
+class MainHandler(webapp2.RequestHandler):
 
     def get(self):
         # Viewing guestbook
@@ -46,7 +46,7 @@ class MainHandler(webapp.RequestHandler):
         self.response.out.write(template.render(template_values))
 
 
-class GuestBook(webapp.RequestHandler):
+class GuestBook(webapp2.RequestHandler):
 
     def post(self):
         # Posting a new guestbook entry
@@ -61,7 +61,7 @@ class GuestBook(webapp.RequestHandler):
         self.redirect('/')
 
 
-application = webapp.WSGIApplication(
+application = webapp2.WSGIApplication(
     [
         ('/', MainHandler),
         ('/sign', GuestBook),
