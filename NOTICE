@@ -1,0 +1,6 @@
+
+App Engine Python Guestbook with Cloud SQL
+Copyright (C) 2010-2012 Google Inc.
+
+This software is a sample guestbook with App Engine Python runtime
+with Cloud SQL as the data storage.
