@@ -1,4 +1,3 @@
-
 # Guestbook with Cloud SQL
 
 This is another guestbook example with Cloud SQL as the data
