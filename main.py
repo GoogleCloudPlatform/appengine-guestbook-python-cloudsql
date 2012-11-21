@@ -31,12 +31,11 @@ class MainHandler(webapp2.RequestHandler):
 
     def get(self):
         # Viewing guestbook
-        conn = get_connection()
-        cursor = conn.cursor()
-        cursor.execute('SELECT guest_name, content, created_at FROM entries '
-                       'ORDER BY created_at DESC limit 20')
-        rows = cursor.fetchall()
-        conn.close()
+        with get_connection() as conn:
+            cursor = conn.cursor()
+            cursor.execute('SELECT guest_name, content, created_at FROM entries'
+                           ' ORDER BY created_at DESC limit 20')
+            rows = cursor.fetchall()
         template_values = {'rows': rows}
         template = jinja2_env.get_template('index.html')
         self.response.out.write(template.render(template_values))
