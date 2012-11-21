@@ -13,18 +13,14 @@ import jinja2
 import webapp2
 from google.appengine.api import rdbms
 
-# No app specific libraries
-
-
-CLOUDSQL_INSTANCE = 'ReplaceWithYourInstanceName'
-DATABASE_NAME = 'guestbook'
-USER_NAME = 'ReplaceWithYourDatabaseUserName'
-PASSWORD = 'ReplaceWithYourDatabasePassword'
-
+# App specific libraries
+import settings
 
 def get_connection():
-    return rdbms.connect(instance=CLOUDSQL_INSTANCE, database=DATABASE_NAME,
-                         user=USER_NAME, password=PASSWORD, charset='utf8')
+    return rdbms.connect(instance=settings.CLOUDSQL_INSTANCE,
+                         database=settings.DATABASE_NAME,
+                         user=settings.USER_NAME,
+                         password=settings.PASSWORD, charset='utf8')
 
 
 jinja2_env = jinja2.Environment(
