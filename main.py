@@ -55,14 +55,13 @@ class GuestBook(webapp2.RequestHandler):
 
     def post(self):
         # Posting a new guestbook entry
-        conn = get_connection()
-        cursor = conn.cursor()
-        cursor.execute('INSERT INTO entries (guest_name, content) '
-                       'VALUES (%s, %s)',
-                       (self.request.get('guest_name'),
-                        self.request.get('content')))
-        conn.commit()
-        conn.close()
+        with GetConnection() as conn:
+            cursor = conn.cursor()
+            cursor.execute('INSERT INTO entries (guest_name, content) '
+                           'VALUES (%s, %s)',
+                           (self.request.get('guest_name'),
+                            self.request.get('content')))
+            conn.commit()
         self.redirect('/')
 
 
