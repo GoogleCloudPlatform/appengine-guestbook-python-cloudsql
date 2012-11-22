@@ -16,11 +16,21 @@ from google.appengine.api import rdbms
 # App specific libraries
 import settings
 
-def get_connection():
-    return rdbms.connect(instance=settings.CLOUDSQL_INSTANCE,
-                         database=settings.DATABASE_NAME,
-                         user=settings.USER_NAME,
-                         password=settings.PASSWORD, charset='utf8')
+class GetConnection():
+    """A guard class for ensuring the connection will be closed."""
+
+    def __init__(self):
+        self.conn = None
+
+    def __enter__(self):
+        self.conn = rdbms.connect(instance=settings.CLOUDSQL_INSTANCE,
+                                  database=settings.DATABASE_NAME,
+                                  user=settings.USER_NAME,
+                                  password=settings.PASSWORD, charset='utf8')
+        return self.conn
+
+    def __exit__(self, type, value, traceback):
+        self.conn.close()
 
 
 jinja2_env = jinja2.Environment(
@@ -31,7 +41,7 @@ class MainHandler(webapp2.RequestHandler):
 
     def get(self):
         # Viewing guestbook
-        with get_connection() as conn:
+        with GetConnection() as conn:
             cursor = conn.cursor()
             cursor.execute('SELECT guest_name, content, created_at FROM entries'
                            ' ORDER BY created_at DESC limit 20')
