@@ -1,7 +1,7 @@
 # Guestbook with Cloud SQL
 
 This is another guestbook example with Cloud SQL as the data
-storage. Please follow the [instrutions][1] in order to run this
+storage. Please follow the [instructions][1] in order to run this
 application.
 
 ## Products
